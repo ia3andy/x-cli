@@ -1,1 +1,1 @@
-# x-cli
+# XD CLI
