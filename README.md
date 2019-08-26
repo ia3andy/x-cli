@@ -19,6 +19,11 @@ Running command: i-love-this-tool --deploy --bin ./target/my-bin --target-host 1
 
 It really looks like **npm scripts**, but this is a **cross-language** tool.
 
+## Install
+
+Download the latest release and add it to your path, or publish it as part of your sources:
+https://github.com/ia3andy/xd/releases
+
 ## Configuration file
 
 The configuration file can be in `json` or `yaml`, it should be named `.xd.yaml`, `.xd.yml` or `.xd.json`.

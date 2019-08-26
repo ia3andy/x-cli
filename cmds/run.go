@@ -1,3 +1,5 @@
+// +build !windows
+
 package cmds
 
 import (
@@ -14,6 +16,7 @@ func RunCmd(cmd string) {
 	words := strings.Fields(cmd)
 	println("Running command: " + cmd + "\n")
 	command := exec.Command(words[0], words[1:]...)
+
 	f, err := pty.Start(command)
 	if err != nil {
 		panic(err)
