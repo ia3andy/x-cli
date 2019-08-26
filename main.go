@@ -1,20 +1,20 @@
 package main
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"log"
 	"os"
-	"os/exec"
-	"strings"
 
+	"github.com/ia3andy/xd/cmds"
 	"github.com/urfave/cli"
+	"gopkg.in/yaml.v2"
 )
 
 func main() {
+
 	app := cli.NewApp()
 
-	b, err := ioutil.ReadFile(".xd.json")
+	b, err := ioutil.ReadFile(".xd.yml")
 	if err != nil {
 		println("No .xd.json configuration file found in folder")
 		return
@@ -22,7 +22,7 @@ func main() {
 
 	m := map[string]string{}
 
-	err = json.Unmarshal(b, &m)
+	err = yaml.Unmarshal(b, &m)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 		return
@@ -30,10 +30,20 @@ func main() {
 
 	commands := make([]cli.Command, 0)
 	for k, v := range m {
+		parsedCmd := cmds.ParseCmd(v)
+
 		commands = append(commands, cli.Command{
-			Name: k + ": " + v,
+			Name:  k,
+			Usage: "Execute the command: " + parsedCmd.Text,
+			Flags: cmds.ReadFlags(parsedCmd),
+
 			Action: func(c *cli.Context) error {
-				runCmd(v)
+				params := cmds.ReadParams(parsedCmd, c)
+				processed, err := cmds.ProcessCmd(parsedCmd, params)
+				if err != nil {
+					return err
+				}
+				cmds.RunCmd(processed)
 				return nil
 			},
 		})
@@ -44,16 +54,4 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-}
-
-func runCmd(cmd string) {
-	words := strings.Fields(cmd)
-	command := exec.Command(words[0], words[1:]...)
-	stdout, err := command.Output()
-	println("Running command: " + cmd)
-	if err != nil {
-		println(err.Error())
-		return
-	}
-	print(string(stdout))
 }
