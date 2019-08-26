@@ -46,7 +46,7 @@ func findConfigFile() (string, error) {
 		return ".xd.yml", nil
 	}
 	if fileExists(".xd.yaml") {
-		return ".xd.yml", nil
+		return ".xd.yaml", nil
 	}
 	if fileExists(".xd.json") {
 		return ".xd.json", nil

@@ -36,7 +36,8 @@ func ReadFlags(parsedCmd ParsedCmd) []cli.Flag {
 	for i, v := range parsedCmd.Vars {
 		flags[i] = cli.StringFlag{
 			Name:     v.Name,
-			Required: true,
+			Required: v.Value == "",
+			Value:    v.Value,
 		}
 	}
 	return flags

@@ -1,5 +1,5 @@
 ---
 scripts: 
-  hello: echo "Hello ${target}"
+  hello: echo "Hello ${target|World}"
   ll: ls -al ${dir}
   status: git status

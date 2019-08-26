@@ -9,10 +9,14 @@ import (
 func ProcessCmd(parsedCmd ParsedCmd, params map[string]string) (string, error) {
 	processed := parsedCmd.Text
 	for _, v := range parsedCmd.Vars {
-		if params[v.Name] == "" {
+		param := params[v.Name]
+		if param == "" {
+			param = v.Value
+		}
+		if param == "" {
 			return "", fmt.Errorf("param '%s' must be defined", v.Name)
 		}
-		processed = strings.ReplaceAll(processed, v.Expression, params[v.Name])
+		processed = strings.ReplaceAll(processed, v.Expression, param)
 	}
 	return processed, nil
 }

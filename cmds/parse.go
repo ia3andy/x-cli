@@ -8,6 +8,7 @@ import (
 type Variable struct {
 	Expression string
 	Name       string
+	Value      string
 }
 
 // ParsedCmd is a command and all its extracted information
@@ -18,7 +19,7 @@ type ParsedCmd struct {
 
 // ParseCmd is parsing the command and extracting revelent information
 func ParseCmd(cmd string) ParsedCmd {
-	varNamesRegexp := regexp.MustCompile(`\$\{([^}]*)\}`)
+	varNamesRegexp := regexp.MustCompile(`\$\{([^}|]*)(\|([^}]*))?\}`)
 	matches := varNamesRegexp.FindAllStringSubmatch(cmd, -1)
 	if matches == nil {
 		return ParsedCmd{cmd, make([]Variable, 0)}
@@ -26,7 +27,7 @@ func ParseCmd(cmd string) ParsedCmd {
 	count := len(matches)
 	var vars = make([]Variable, count)
 	for i, match := range matches {
-		vars[i] = Variable{match[0], match[1]}
+		vars[i] = Variable{Expression: match[0], Name: match[1], Value: match[3]}
 	}
 	return ParsedCmd{cmd, vars}
 }

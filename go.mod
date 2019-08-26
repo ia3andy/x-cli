@@ -3,6 +3,7 @@ module github.com/ia3andy/xd
 go 1.12
 
 require (
+	github.com/creack/pty v1.1.7
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/mitchellh/gox v1.0.1 // indirect
 	github.com/pkg/errors v0.8.1 // indirect
