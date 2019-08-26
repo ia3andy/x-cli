@@ -1,9 +1,11 @@
 package configs
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -27,7 +29,12 @@ func ReadConfig() (*XDConfig, error) {
 
 	config := XDConfig{}
 
-	err = yaml.Unmarshal(b, &config)
+	if strings.HasSuffix(configFile, ".json") {
+		err = json.Unmarshal(b, &config)
+	} else {
+		err = yaml.Unmarshal(b, &config)
+	}
+
 	if err != nil {
 		return nil, fmt.Errorf("invalid format in configuration file '%s': %v", configFile, err)
 	}
@@ -40,6 +47,9 @@ func findConfigFile() (string, error) {
 	}
 	if fileExists(".xd.yaml") {
 		return ".xd.yml", nil
+	}
+	if fileExists(".xd.json") {
+		return ".xd.json", nil
 	}
 	return "", fmt.Errorf("configuration file not found in current directoy")
 }
