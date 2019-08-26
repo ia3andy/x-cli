@@ -2,17 +2,6 @@
 
 This tiny tool wrap all the complex commands you always use in a project:
 
-**BEFORE**
-```
-$ history | grep deploy                 // Search for the command you used before
-$ i-hate-this-command \                 // Copy and paste and change manually the parameters
-  --deploy \
-  --bin ./target/my-bin \
-  --target-host 192.168.1.1 \
-  ...
-```
-
-**AFTER**
 ```
 $ xd help                               // Show me the commands I always use in this project
 ...
@@ -21,10 +10,10 @@ COMMANDS:
    [other commands ...]
 ...
 $ xd deploy --to 192.168.1.4
-Running command: i-love-this-tool \
-  --deploy \
-  --bin ./target/my-bin \
-  --target-host 192.168.1.4
+Running command: i-love-this-tool --deploy --bin ./target/my-bin --target-host 192.168.1.4
+[command output ...]
+$ xd deploy --to 192.168.1.4
+Running command: i-love-this-tool --deploy --bin ./target/my-bin --target-host 192.168.1.1
 [command output ...]
 ```
 
