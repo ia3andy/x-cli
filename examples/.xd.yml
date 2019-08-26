@@ -1,4 +1,5 @@
 ---
-hello: echo "Hello ${target}"
-ll: ls -al ${dir}
-status: git status
+scripts: 
+  hello: echo "Hello ${target}"
+  ll: ls -al ${dir}
+  status: git status
