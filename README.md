@@ -4,7 +4,7 @@ This tiny tool wrap all the complex commands you always use in a project:
 
 **BEFORE**
 ```
-$ history | grep deploy                            // Search for the command you used before
+$ history | grep deploy                 // Search for the command you used before
 $ i-hate-this-command \                 // Copy and paste and change manually the parameters
   --deploy \
   --bin ./target/my-bin \
@@ -14,7 +14,12 @@ $ i-hate-this-command \                 // Copy and paste and change manually th
 
 **AFTER**
 ```
-$ xd help                          // Show me the command I always use in this project
+$ xd help                               // Show me the commands I always use in this project
+...
+COMMANDS:
+   deploy     Execute the command: i-hate-this-command --deploy --bin ./target/my-bin --target-host ${to|192.168.1.1}
+   [other commands ...]
+...
 $ xd deploy --to 192.168.1.4
 Running command: i-love-this-tool \
   --deploy \
