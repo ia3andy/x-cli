@@ -1,8 +1,8 @@
 # XD CLI
 
-This tiny tool wrap all the complex commands you always use in a project and make it easy to find/use them:
+This tiny tool wrap all the complex commands your team always use in a project and make it easy to find/use them:
 ```
-$ xd help                               // Show me the commands I always use in this project
+$ xd 
 ...
 COMMANDS:
    start     Execute the command: java -jar target/getting-started-1.0-SNAPSHOT-runner.jar
@@ -28,13 +28,11 @@ https://github.com/ia3andy/xd/releases
 
 ## Configuration file
 
-The configuration file can be in `json` or `yaml`, it should be named `.xd.yaml`, `.xd.yml` or `.xd.json`.
+- It should be named `.xd.yaml`, `.xd.yml` or `.xd.json`.
+- You just need a `scripts` field with a map of names and commands.
+- You can define parameters `${param1}` (with default `${param1|Some default value}`).
 
-You just need a `script` field with a map of name and command.
-
-You can specify available params in the form of `${param1}` and you can specify a default value `${param1|Some default value}`
-
-### Example:
+### Example
 
 ```yaml
 --- 
@@ -45,3 +43,9 @@ scripts:
   package: ./mvnw package
   start: java -jar target/getting-started-1.0-SNAPSHOT-runner.jar
 ```
+
+## Usage
+
+In a directory containing a xd configuration file:
+- Type `xd` to list commands
+- Type `xd command` to use a command (and with param: `xd command --param1 value1`)
